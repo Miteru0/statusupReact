@@ -10,7 +10,7 @@ const LoginPage = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const apiUrl = process.env.REACT_APP_API_URL || 'https://statusup-347c42d4df93.herokuapp.com/';  // Default to localhost:8080 if env variable is not set
+    const apiUrl = process.env.REACT_APP_API_URL || 'https://statusup-347c42d4df93.herokuapp.com';  // Default to localhost:8080 if env variable is not set
     try {
       const response = await axios.post(`${apiUrl}/authenticate`, {
         username,
