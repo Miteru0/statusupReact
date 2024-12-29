@@ -19,7 +19,7 @@ const MyFriends = () => {
 
       try {
         const response = await axios.get(
-          `${process.env.REACT_APP_API_URL}/relationship/find/${username}/friends`,
+          `${process.env.REACT_APP_API_URL}/relationship/${username}/friends`,
           {
             headers: {
               Authorization: `Bearer ${token}`,
