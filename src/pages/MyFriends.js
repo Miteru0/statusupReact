@@ -65,6 +65,7 @@ const FriendsPage = () => {
       return;
     }
 
+    const token = localStorage.getItem('token'); // Retrieve token inside the function
     try {
       const response = await axios.post(
         `${process.env.REACT_APP_API_URL}/friends/requests/send`,
@@ -89,6 +90,7 @@ const FriendsPage = () => {
   };
 
   const handleAnswerRequest = async (relationshipId, isAccepted) => {
+    const token = localStorage.getItem('token'); // Retrieve token inside the function
     try {
       const response = await axios.post(
         `${process.env.REACT_APP_API_URL}/friends/requests/answer`,
