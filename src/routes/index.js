@@ -7,6 +7,7 @@ import MyCalendars from '../pages/MyCalendars';
 import MyFriends from '../pages/MyFriends';
 import PrivateRoute from '../components/PrivateRoute';
 import Navigator from '../components/Navigator';
+import VerifyPage from '../pages/VerifyPage';
 
 function AppRoutes() {
   return (
