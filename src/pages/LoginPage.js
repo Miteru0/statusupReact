@@ -1,4 +1,3 @@
-// src/pages/LoginPage.js
 import React, { useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
@@ -11,7 +10,7 @@ const LoginPage = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const apiUrl = process.env.REACT_APP_API_URL || 'https://statusup-347c42d4df93.herokuapp.com';  // Default to localhost:8080 if env variable is not set
+    const apiUrl = process.env.REACT_APP_API_URL || 'https://statusup-347c42d4df93.herokuapp.com';
     try {
       const response = await axios.post(`${apiUrl}/authenticate`, {
         username,
@@ -20,6 +19,14 @@ const LoginPage = () => {
 
       // Save the JWT token to localStorage
       localStorage.setItem('token', response.data);
+
+      // Fetch and store the username globally
+      const userResponse = await axios.get(`${apiUrl}/user`, {
+        headers: {
+          Authorization: `Bearer ${response.data}`,
+        },
+      });
+      localStorage.setItem('username', userResponse.data);
 
       // Redirect to profile page after successful login
       navigate('/');
