@@ -8,6 +8,8 @@ import MyFriends from '../pages/MyFriends';
 import PrivateRoute from '../components/PrivateRoute';
 import Navigator from '../components/Navigator';
 import VerifyPage from '../pages/VerifyPage';
+import CalendarPage from '../pages/CalendarPage'; // Import the CalendarPage
+import AddEventPage from '../pages/AddEventPage'; // Import the AddEventPage
 
 function AppRoutes() {
   return (
@@ -35,6 +37,22 @@ function AppRoutes() {
           element={
             <PrivateRoute>
               <MyFriends />
+            </PrivateRoute>
+          }
+        />
+        <Route
+          path="/mycalendars/:calendarname"
+          element={
+            <PrivateRoute>
+              <CalendarPage />
+            </PrivateRoute>
+          }
+        />
+        <Route
+          path="/mycalendars/:calendarname/addevent"
+          element={
+            <PrivateRoute>
+              <AddEventPage />
             </PrivateRoute>
           }
         />
