@@ -94,7 +94,10 @@ const FriendsPage = () => {
     try {
       const response = await axios.post(
         `${process.env.REACT_APP_API_URL}/friends/requests/answer`,
-        { relationshipId, isAccepted },
+        {
+          friendRequestId: relationshipId,
+          isAccepted: isAccepted
+        },
         { headers: { Authorization: `Bearer ${token}` } }
       );
 
