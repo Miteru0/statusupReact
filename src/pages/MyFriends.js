@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import axios from '../axios'; // Use your configured axios instance
+import axios from 'axios';
 import { Link } from 'react-router-dom';
 
 const FriendsPage = () => {
@@ -123,7 +123,7 @@ const FriendsPage = () => {
         <ul>
           {friends.map((friend) => (
             <li key={friend}>
-              <Link to={`/myfriends/${friend}/calendars`}>{friend}</Link>
+               <Link to={`/friends/${friend}/calendars`}>{friend}</Link>
             </li>
           ))}
         </ul>

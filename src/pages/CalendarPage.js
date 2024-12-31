@@ -1,80 +1,87 @@
 import React, { useEffect, useState } from 'react';
 import axios from '../axios';
-import { useParams, useNavigate } from 'react-router-dom';
-import Calendar from 'react-calendar'; // Import react-calendar
-import 'react-calendar/dist/Calendar.css'; // Import CSS for styling
+import { useParams, Link, useNavigate } from 'react-router-dom';
+import { Calendar, dateFnsLocalizer } from 'react-big-calendar';
+import 'react-big-calendar/lib/css/react-big-calendar.css';
+import { format, parse, startOfWeek, getDay } from 'date-fns';
+import enUS from 'date-fns/locale/en-US';
+
+const locales = {
+  'en-US': enUS,
+};
+
+const localizer = dateFnsLocalizer({
+  format,
+  parse,
+  startOfWeek: () => startOfWeek(new Date(), { weekStartsOn: 0 }),
+  getDay,
+  locales,
+});
 
 const CalendarPage = () => {
-  const { calendarname, username } = useParams(); // Get calendar and username from the URL
+  const { calendarId } = useParams();
   const navigate = useNavigate();
   const [events, setEvents] = useState([]);
-  const [currentDate, setCurrentDate] = useState(new Date());
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState('');
 
   useEffect(() => {
     const fetchEvents = async () => {
+      const username = localStorage.getItem('username');
       const token = localStorage.getItem('token');
-      if (!token) {
-        navigate('/login'); // Redirect to login if token is missing
-        return;
-      }
 
       try {
-        const response = await axios.get(
-          `${process.env.REACT_APP_API_URL}/calendar/${username || 'me'}/${calendarname}/events`,
-          {
-            headers: {
-              Authorization: `Bearer ${token}`,
-            },
-          }
-        );
-        setEvents(response.data); // Assuming the events data is returned from API
+        const response = await axios.get(`${process.env.REACT_APP_API_URL}/calendar/${username}/${calendarId}/events`, {
+          headers: { Authorization: `Bearer ${token}` },
+        });
+        const mappedEvents = response.data.map((event) => ({
+          id: event.id,
+          title: event.name,
+          start: new Date(event.startDate),
+          end: new Date(event.endDate),
+          allDay: event.allDay || false,
+        }));
+        setEvents(mappedEvents);
         setLoading(false);
-      } catch (err) {
+      } catch (error) {
+        setError('Failed to fetch events.');
         setLoading(false);
-        console.error('Failed to fetch events:', err.response?.data || err.message);
       }
     };
 
     fetchEvents();
-  }, [calendarname, username, navigate]);
+  }, [calendarId]);
 
-  const handleDateChange = (date) => {
-    setCurrentDate(date); // Change the selected date
-  };
-
-  const getEventsForDate = (date) => {
-    const dateString = date.toISOString().split('T')[0]; // Convert date to YYYY-MM-DD format
-    return events.filter(event => event.startDate === dateString); // Filter events for that day
-  };
-
-  const renderEventDetails = (eventsForDay) => {
-    return eventsForDay.map((event, index) => (
-      <div key={index}>
-        <strong>{event.name}</strong> <br />
-        <em>{event.startDate}</em> <br />
-        {event.description && <p>{event.description}</p>}
-      </div>
-    ));
-  };
-
-  if (loading) return <p>Loading events...</p>;
+  if (loading) return <p>Loading calendar...</p>;
+  if (error) return <p>{error}</p>;
 
   return (
     <div>
-      <h2>{calendarname}</h2>
+      <h2>Calendar</h2>
+      <button
+        onClick={() => navigate(`/mycalendars/${calendarId}/addevent`)}
+        style={{
+          marginBottom: '20px',
+          padding: '10px 20px',
+          backgroundColor: '#4CAF50',
+          color: 'white',
+          border: 'none',
+          borderRadius: '4px',
+          cursor: 'pointer',
+        }}
+      >
+        Add Event
+      </button>
       <Calendar
-        onChange={handleDateChange}
-        value={currentDate}
+        localizer={localizer}
+        events={events}
+        startAccessor="start"
+        endAccessor="end"
+        style={{ height: 500 }}
+        onSelectEvent={(event) => {
+          window.location.href = `/mycalendars/${calendarId}/${event.id}`;
+        }}
       />
-      <div>
-        <h3>Events for {currentDate.toLocaleDateString()}</h3>
-        {getEventsForDate(currentDate).length === 0 ? (
-          <p>No events for this day.</p>
-        ) : (
-          renderEventDetails(getEventsForDate(currentDate))
-        )}
-      </div>
     </div>
   );
 };

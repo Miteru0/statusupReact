@@ -1,14 +1,18 @@
-// src/components/Navigator.js
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React, { useState } from 'react';
+import { Link, Navigate } from 'react-router-dom'; // Import Navigate
 
 const Navigator = () => {
+  const [isLoggedOut, setIsLoggedOut] = useState(false);
   const token = localStorage.getItem('token');
 
   const handleLogout = () => {
     localStorage.removeItem('token'); // Clear token
-    window.location.href = '/login'; // Redirect to login
+    setIsLoggedOut(true); // Flag to trigger redirection
   };
+
+  if (isLoggedOut) {
+    return <Navigate to="/login" />;
+  }
 
   return (
     token && (
