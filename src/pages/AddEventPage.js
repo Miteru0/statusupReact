@@ -13,7 +13,6 @@ const AddEventPage = () => {
   const handleAddEvent = async (e) => {
     e.preventDefault(); // Prevent default form submission behavior
 
-    const username = localStorage.getItem('username');
     const token = localStorage.getItem('token');
 
     const newEvent = {

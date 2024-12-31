@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import axios from '../axios';
-import { useParams, Link, useNavigate } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import { Calendar, dateFnsLocalizer } from 'react-big-calendar';
 import 'react-big-calendar/lib/css/react-big-calendar.css';
 import { format, parse, startOfWeek, getDay } from 'date-fns';
@@ -59,7 +59,7 @@ const CalendarPage = () => {
     <div>
       <h2>Calendar</h2>
       <button
-        onClick={() => navigate(`/mycalendars/${calendarId}/addevent`)}
+        onClick={() => navigate(`/calendars/${calendarId}/addevent`)}
         style={{
           marginBottom: '20px',
           padding: '10px 20px',
@@ -79,7 +79,7 @@ const CalendarPage = () => {
         endAccessor="end"
         style={{ height: 500 }}
         onSelectEvent={(event) => {
-          window.location.href = `/mycalendars/${calendarId}/${event.id}`;
+          window.location.href = `/calendars/${calendarId}/${event.id}`;
         }}
       />
     </div>
