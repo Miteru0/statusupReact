@@ -59,7 +59,7 @@ const CalendarPage = () => {
     <div>
       <h2>Calendar</h2>
       <button
-        onClick={() => navigate(`/calendars/${calendarId}/addevent`)}
+        onClick={() => navigate(`/mycalendars/${calendarId}/addevent`)}
         style={{
           marginBottom: '20px',
           padding: '10px 20px',
@@ -79,7 +79,7 @@ const CalendarPage = () => {
         endAccessor="end"
         style={{ height: 500 }}
         onSelectEvent={(event) => {
-          window.location.href = `/calendars/${calendarId}/${event.id}`;
+          window.location.href = `/mycalendars/${calendarId}/${event.id}`;
         }}
       />
     </div>
