@@ -1,11 +1,12 @@
-// src/pages/MyProfile.js
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import './styles/style.css';
 
 const MyProfile = () => {
   const [username, setUsername] = useState('');
   const navigate = useNavigate();
+  const [loading, setLoading] = useState(true); // Track loading state
 
   useEffect(() => {
     const token = localStorage.getItem('token');
@@ -22,6 +23,7 @@ const MyProfile = () => {
       })
       .then((response) => {
         setUsername(response.data);
+        setLoading(false);
       })
       .catch(() => {
         localStorage.removeItem('token'); // Clear invalid token
@@ -30,9 +32,25 @@ const MyProfile = () => {
   }, [navigate]);
 
   return (
-    <div>
-      <h2>My Profile</h2>
-      {username ? <p>Username: {username}</p> : <p>Loading...</p>}
+    <div className="profile-page">
+      <h2 className="profile-heading">My Profile</h2>
+      {loading ? (
+        <div className="loading-spinner">
+          <div className="spinner"></div>
+          <p>Loading...</p>
+        </div>
+      ) : (
+        <div className="profile-card">
+          {username ? (
+            <>
+              <h3>Username:</h3>
+              <p>{username}</p>
+            </>
+          ) : (
+            <p>No username found</p>
+          )}
+        </div>
+      )}
     </div>
   );
 };

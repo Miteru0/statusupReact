@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
+import './styles/style.css'; // Make sure the correct path is used
 
 const AddEventPage = () => {
-  const { calendarId } = useParams(); // Use calendarId instead of calendarname
+  const { calendarId } = useParams();
   const [eventName, setEventName] = useState('');
   const [startDate, setStartDate] = useState('');
   const [endDate, setEndDate] = useState('');
@@ -11,7 +12,7 @@ const AddEventPage = () => {
   const [error, setError] = useState('');
 
   const handleAddEvent = async (e) => {
-    e.preventDefault(); // Prevent default form submission behavior
+    e.preventDefault();
 
     const token = localStorage.getItem('token');
 
@@ -26,7 +27,7 @@ const AddEventPage = () => {
 
     try {
       await axios.post(
-        `${process.env.REACT_APP_API_URL}/calendar/${calendarId}`, // Corrected URL with calendarId
+        `${process.env.REACT_APP_API_URL}/calendar/${calendarId}`,
         newEvent,
         { headers: { Authorization: `Bearer ${token}` } }
       );
@@ -42,9 +43,9 @@ const AddEventPage = () => {
   };
 
   return (
-    <div>
+    <div className="add-event-container">
       <h2>Add Event to Calendar ID: {calendarId}</h2>
-      <form onSubmit={handleAddEvent}>
+      <form onSubmit={handleAddEvent} className="add-event-form">
         <label>
           Event Name:
           <input
@@ -83,9 +84,9 @@ const AddEventPage = () => {
           />
         </label>
         <br />
-        <button type="submit">Add Event</button>
+        <button type="submit" className="btn-primary">Add Event</button>
       </form>
-      {error && <p style={{ color: 'red' }}>{error}</p>}
+      {error && <p className="error-message">{error}</p>}
     </div>
   );
 };

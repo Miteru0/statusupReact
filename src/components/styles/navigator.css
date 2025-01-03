@@ -1,0 +1,46 @@
+/* Navigator Component Styles */
+.navigator-nav {
+  display: flex;
+  justify-content: space-between; /* Adjusting alignment to make space more balanced */
+  align-items: center;
+  background-color: #333333; /* Dark background to contrast with white links */
+  padding: 15px 40px; /* Increased padding for better spacing */
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15); /* Deeper shadow for more depth */
+  position: sticky;
+  top: 0; /* Ensures the navigator stays at the top */
+  z-index: 1000; /* Ensures the navigator stays on top of other content */
+  border-radius: 0px; /* Set border-radius to 0 to make the navigator rectangular */
+}
+
+.navigator-link {
+  color: #ffffff; /* White color for better contrast */
+  font-size: 18px; /* Slightly larger text for better readability */
+  font-weight: 600; /* Bold for more emphasis */
+  text-decoration: none;
+  padding: 10px 20px; /* Increased padding for easier clicks */
+  border-radius: 0px; /* Remove the rounded corners for the links */
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.navigator-link:hover {
+  background-color: #555555; /* Slightly lighter shade for hover effect */
+  transform: scale(1.05); /* Small scale effect on hover to add interactivity */
+  color: #ffffff; /* Ensures the text remains white on hover */
+}
+
+.navigator-logoutButton {
+  background-color: #ff5733; /* Contrasting color for the logout button */
+  color: white;
+  padding: 12px 25px; /* Increased padding for the button */
+  font-size: 16px;
+  font-weight: 600; /* Bold text for emphasis */
+  border: none;
+  border-radius: 0px; /* Set border-radius to 0 to make the button rectangular */
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.navigator-logoutButton:hover {
+  background-color: #ff3300; /* Slightly darker shade on hover */
+  transform: scale(1.05); /* Add scaling effect for interactivity */
+}

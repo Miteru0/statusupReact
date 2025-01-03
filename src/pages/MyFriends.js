@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
+import './styles/style.css'; // Import the CSS file
 
 const FriendsPage = () => {
   const [friends, setFriends] = useState([]);
@@ -11,7 +12,6 @@ const FriendsPage = () => {
   const [error, setError] = useState(null);
   const [successMessage, setSuccessMessage] = useState('');
 
-  // Fetch all friends and friend requests
   useEffect(() => {
     const fetchFriendsAndRequests = async () => {
       setLoading(true);
@@ -26,21 +26,18 @@ const FriendsPage = () => {
       }
 
       try {
-        // Fetch friends
         const friendsResponse = await axios.get(
           `${process.env.REACT_APP_API_URL}/relationship/${username}/friends`,
           { headers: { Authorization: `Bearer ${token}` } }
         );
         setFriends(friendsResponse.data);
 
-        // Fetch received friend requests
         const receivedResponse = await axios.get(
           `${process.env.REACT_APP_API_URL}/friends/requests/received`,
           { headers: { Authorization: `Bearer ${token}` } }
         );
         setReceivedRequests(receivedResponse.data);
 
-        // Fetch sent friend requests
         const sentResponse = await axios.get(
           `${process.env.REACT_APP_API_URL}/friends/requests/sent`,
           { headers: { Authorization: `Bearer ${token}` } }
@@ -65,7 +62,7 @@ const FriendsPage = () => {
       return;
     }
 
-    const token = localStorage.getItem('token'); // Retrieve token inside the function
+    const token = localStorage.getItem('token');
     try {
       const response = await axios.post(
         `${process.env.REACT_APP_API_URL}/friends/requests/send`,
@@ -76,7 +73,7 @@ const FriendsPage = () => {
       if (response.status === 201) {
         setSuccessMessage('Friend request sent successfully!');
         setNewFriendUsername('');
-        setTimeout(() => window.location.reload(), 1000); // Refresh to show updated sent requests
+        setTimeout(() => window.location.reload(), 1000);
       }
     } catch (error) {
       if (error.response.status === 409) {
@@ -90,7 +87,7 @@ const FriendsPage = () => {
   };
 
   const handleAnswerRequest = async (relationshipId, isAccepted) => {
-    const token = localStorage.getItem('token'); // Retrieve token inside the function
+    const token = localStorage.getItem('token');
     try {
       const response = await axios.post(
         `${process.env.REACT_APP_API_URL}/friends/requests/answer`,
@@ -102,7 +99,7 @@ const FriendsPage = () => {
       );
 
       if (response.status === 200) {
-        setTimeout(() => window.location.reload(), 1000); // Refresh to show updated lists
+        setTimeout(() => window.location.reload(), 1000);
       }
     } catch (error) {
       setError('Failed to answer the friend request.');
@@ -113,76 +110,80 @@ const FriendsPage = () => {
   if (error) return <p>Error: {error}</p>;
 
   return (
-    <div>
-      <h2>Friends</h2>
+    <div className="friends-page">
+      <h2 className="page-title">🌟 Your Friends</h2>
 
-      {/* Friend List */}
-      {friends.length === 0 ? (
-        <p>You have no friends added yet.</p>
-      ) : (
-        <ul>
-          {friends.map((friend) => (
-            <li key={friend}>
-               <Link to={`/friends/${friend}/calendars`}>{friend}</Link>
-            </li>
-          ))}
-        </ul>
-      )}
+      <div className="card">
+        <h3 className="section-title">Friend List</h3>
+        {friends.length === 0 ? (
+          <p>You have no friends added yet.</p>
+        ) : (
+          <ul className="friend-list">
+            {friends.map((friend) => (
+              <li key={friend}>
+                <Link to={`/friends/${friend}/calendars`}>{friend}</Link>
+              </li>
+            ))}
+          </ul>
+        )}
+      </div>
 
-      {/* Send Friend Request */}
-      <div>
-        <h3>Send a Friend Request</h3>
+      <div className="card">
+        <h3 className="section-title">Send a Friend Request</h3>
         <input
           type="text"
           placeholder="Enter username"
           value={newFriendUsername}
           onChange={(e) => setNewFriendUsername(e.target.value)}
+          className="input-field"
         />
-        <button onClick={handleSendRequest}>Send Request</button>
-        {successMessage && <p style={{ color: 'green' }}>{successMessage}</p>}
-        {error && <p style={{ color: 'red' }}>{error}</p>}
+        <button className="btn-primary" onClick={handleSendRequest}>
+          Send Request
+        </button>
+        {successMessage && <p className="success-message">{successMessage}</p>}
+        {error && <p className="error-message">{error}</p>}
       </div>
 
-      {/* Received Friend Requests */}
-      <div>
-        <h3>Received Friend Requests</h3>
-        {receivedRequests.length === 0 && <p>No received requests.</p>}
-        {receivedRequests.map((request) => (
-          <div
-            key={request.id}
-            style={{
-              border: '1px solid #ccc',
-              padding: '10px',
-              margin: '10px 0',
-            }}
-          >
-            <p>From: <strong>{request.senderUsername}</strong></p>
-            <p>Received on: {new Date(request.createdAt).toLocaleDateString()}</p>
-            <div>
-              <button onClick={() => handleAnswerRequest(request.id, true)}>Accept</button>
-              <button onClick={() => handleAnswerRequest(request.id, false)}>Reject</button>
+      <div className="card">
+        <h3 className="section-title">Received Friend Requests</h3>
+        {receivedRequests.length === 0 ? (
+          <p>No received requests.</p>
+        ) : (
+          receivedRequests.map((request) => (
+            <div key={request.id} className="request-card">
+              <p>From: <strong>{request.senderUsername}</strong></p>
+              <p>Received on: {new Date(request.createdAt).toLocaleDateString()}</p>
+              <div>
+                <button
+                  className="btn-primary"
+                  onClick={() => handleAnswerRequest(request.id, true)}
+                >
+                  Accept
+                </button>
+                <button
+                  className="btn-secondary"
+                  onClick={() => handleAnswerRequest(request.id, false)}
+                >
+                  Reject
+                </button>
+              </div>
             </div>
-          </div>
-        ))}
+          ))
+        )}
       </div>
 
-      {/* Sent Friend Requests */}
-      <div>
-        <h3>Sent Friend Requests</h3>
-        {sentRequests.length === 0 && <p>No sent requests.</p>}
-        {sentRequests.map((request) => (
-          <div
-            key={request.id}
-            style={{
-              border: '1px solid #ccc',
-              padding: '10px',
-              margin: '10px 0',
-            }}
-          >
-            <p>To: <strong>{request.receiverUsername}</strong></p>
-            <p>Sent on: {new Date(request.createdAt).toLocaleDateString()}</p>
-          </div>
-        ))}
+      <div className="card">
+        <h3 className="section-title">Sent Friend Requests</h3>
+        {sentRequests.length === 0 ? (
+          <p>No sent requests.</p>
+        ) : (
+          sentRequests.map((request) => (
+            <div key={request.id} className="request-card">
+              <p>To: <strong>{request.receiverUsername}</strong></p>
+              <p>Sent on: {new Date(request.createdAt).toLocaleDateString()}</p>
+            </div>
+          ))
+        )}
       </div>
     </div>
   );

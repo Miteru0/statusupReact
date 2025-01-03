@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import { Link, Navigate } from 'react-router-dom'; // Import Navigate
+import { Link, Navigate } from 'react-router-dom';
+import './styles/navigator.css'; // Import external CSS file for styles
 
 const Navigator = () => {
   const [isLoggedOut, setIsLoggedOut] = useState(false);
@@ -16,43 +17,22 @@ const Navigator = () => {
 
   return (
     token && (
-      <nav style={styles.nav}>
-        <Link to="/" style={styles.link}>
+      <nav className="navigator-nav">
+        <Link to="/" className="navigator-link">
           My Profile
         </Link>
-        <Link to="/mycalendars" style={styles.link}>
+        <Link to="/mycalendars" className="navigator-link">
           My Calendars
         </Link>
-        <Link to="/myfriends" style={styles.link}>
+        <Link to="/myfriends" className="navigator-link">
           My Friends
         </Link>
-        <button onClick={handleLogout} style={styles.logoutButton}>
+        <button onClick={handleLogout} className="navigator-logoutButton">
           Logout
         </button>
       </nav>
     )
   );
-};
-
-const styles = {
-  nav: {
-    display: 'flex',
-    justifyContent: 'space-around',
-    backgroundColor: '#333',
-    padding: '10px',
-  },
-  link: {
-    color: 'white',
-    textDecoration: 'none',
-    padding: '10px',
-  },
-  logoutButton: {
-    backgroundColor: '#f00',
-    color: 'white',
-    border: 'none',
-    padding: '10px',
-    cursor: 'pointer',
-  },
 };
 
 export default Navigator;
