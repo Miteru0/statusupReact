@@ -27,8 +27,8 @@ const LoginPage = () => {
         },
       });
       localStorage.setItem('username', userResponse.data);
-
       navigate('/');
+      window.location.reload();
     } catch (error) {
       setError('Invalid username or password. Please try again.');
     }
