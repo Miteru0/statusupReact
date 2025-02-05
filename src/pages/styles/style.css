@@ -1,0 +1,298 @@
+/* General styles for body and headings */
+body {
+    font-family: 'Poppins', sans-serif;
+    background-color: #ffffff;
+    color: #333333;
+    margin: 0;
+    padding: 0;
+}
+
+h2, h3 {
+    text-align: center;
+    color: #333333;
+}
+
+/* Friends Page Styles */
+.friends-page {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px; /* Reduced padding */
+    background-color: #fafafa;
+    min-height: 100vh;
+}
+
+/* Section titles */
+.page-title {
+    font-size: 2rem; /* Slightly smaller font size */
+    font-weight: 600;
+    margin-bottom: 20px; /* Reduced margin */
+    color: #333333;
+}
+
+/* Card styles for friend lists, requests, etc. */
+.card {
+    background-color: #ffffff;
+    padding: 15px; /* Reduced padding */
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 450px; /* Reduced max-width */
+    text-align: center;
+    margin-top: 20px;
+    border: 1px solid #e1e1e1;
+}
+
+.card h3 {
+    font-size: 1.3rem; /* Reduced font size */
+    font-weight: 500;
+    margin-bottom: 10px;
+    color: #333333;
+}
+
+.card p {
+    font-size: 0.9rem; /* Reduced font size */
+    color: #555555;
+}
+
+/* Friend List Styles */
+.friend-list {
+    list-style-type: none;
+    padding: 0;
+    margin-top: 20px;
+}
+
+.friend-list li {
+    background-color: #f9f9f9;
+    border: 1px solid #e1e1e1;
+    border-radius: 8px;
+    margin: 8px 0; /* Reduced margin */
+    padding: 8px; /* Reduced padding */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    text-align: left;
+}
+
+.friend-list li a {
+    color: #333333;
+    font-weight: 500;
+    text-decoration: none;
+}
+
+.friend-list li a:hover {
+    color: #007bff;
+}
+
+/* Button Styles */
+button, .btn-primary, .btn-secondary {
+    background-color: #333333;
+    color: white;
+    border: none;
+    padding: 8px 12px; /* Reduced padding */
+    border-radius: 20px;
+    cursor: pointer;
+    font-size: 14px; /* Smaller font size */
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    margin-top: 10px;
+}
+
+button:hover, .btn-primary:hover, .btn-secondary:hover {
+    background-color: #555555;
+    transform: scale(1.05);
+}
+
+/* Input Field Styles */
+input[type="text"], input[type="password"], input[type="email"] {
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 8px; /* Reduced padding */
+    width: 100%;
+    margin-bottom: 10px;
+}
+
+input[type="text"]:focus, input[type="password"]:focus, input[type="email"]:focus {
+    border-color: #333333;
+    outline: none;
+}
+
+/* Success and Error Message Styling */
+.success-message, .error-message {
+    font-size: 0.9rem; /* Smaller font size */
+    color: #333333;
+    margin-top: 10px;
+    text-align: center;
+}
+
+.success-message {
+    color: green;
+}
+
+.error-message {
+    color: red;
+}
+
+/* Request Card Styles (for received and sent requests) */
+.request-card {
+    background-color: #f9f9f9;
+    border: 1px solid #e1e1e1;
+    border-radius: 8px;
+    margin: 8px 0; /* Reduced margin */
+    padding: 8px; /* Reduced padding */
+    text-align: left;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.request-card p {
+    margin: 5px 0;
+}
+
+.request-card button {
+    width: 45%;
+    margin-top: 10px;
+}
+
+/* Loading Spinner */
+.loading-spinner {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.spinner {
+    border: 8px solid #f0f0f0;
+    border-top: 8px solid #333333;
+    border-radius: 50%;
+    width: 40px; /* Smaller spinner */
+    height: 40px; /* Smaller spinner */
+    animation: spin 2s linear infinite;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+/* Profile Page Styles */
+.profile-page {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px; /* Adjust padding for balance */
+    background-color: #fafafa;
+    min-height: 100vh;
+}
+
+.profile-heading {
+    font-size: 2rem; /* Reduced font size */
+    font-weight: 600;
+    margin-bottom: 20px; /* Reduced margin */
+    color: #333333;
+}
+
+.profile-card {
+    background-color: #ffffff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 450px; /* Same max-width as friends page */
+    text-align: center;
+    margin-top: 20px;
+    border: 1px solid #e1e1e1;
+}
+
+.profile-card h3 {
+    font-size: 1.3rem; /* Reduced font size */
+    font-weight: 500;
+    margin-bottom: 10px;
+    color: #333333;
+}
+
+.profile-card p {
+    font-size: 0.9rem; /* Reduced font size */
+    color: #555555;
+}
+
+/* Add Event Page Styles */
+.add-event-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+    background-color: #fafafa;
+    min-height: 100vh;
+}
+
+.add-event-container h2 {
+    font-size: 2rem;
+    font-weight: 600;
+    margin-bottom: 20px;
+    color: #333333;
+}
+
+.add-event-form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    max-width: 600px; /* Adjust the form's width */
+    background-color: #ffffff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    border: 1px solid #e1e1e1;
+}
+
+.add-event-form label {
+    font-size: 1rem;
+    margin-bottom: 10px;
+    text-align: left;
+    width: 100%;
+}
+
+.add-event-form input[type="text"],
+.add-event-form input[type="date"],
+.add-event-form textarea {
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 8px;
+    width: 100%;
+    margin-bottom: 15px;
+    font-size: 1rem;
+}
+
+.add-event-form input[type="text"]:focus,
+.add-event-form input[type="date"]:focus,
+.add-event-form textarea:focus {
+    border-color: #333333;
+    outline: none;
+}
+
+.add-event-form button {
+    background-color: #333333;
+    color: white;
+    border: none;
+    padding: 12px 20px;
+    font-size: 16px;
+    font-weight: 600;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    width: 100%;
+}
+
+.add-event-form button:hover {
+    background-color: #555555;
+    transform: scale(1.05);
+}
+
+.error-message {
+    font-size: 0.9rem;
+    color: red;
+    text-align: center;
+    margin-top: 15px;
+}
